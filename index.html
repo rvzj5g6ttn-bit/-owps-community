@@ -7,108 +7,329 @@
   <meta name="description" content="Community-shared OWPS EOI scores by NOC code and Ontario region." />
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
+
   <header class="topbar">
     <div class="brand">
       <div class="brand-icon" aria-hidden="true">👥</div>
+
       <div>
         <div class="brand-title">OWPS Community</div>
-        <div class="brand-subtitle">Share · Explore · Support Each Other</div>
+        <div class="brand-subtitle">
+          Share · Explore · Support Each Other
+        </div>
       </div>
     </div>
-    <div class="top-note">Stronger Together ♡</div>
+
+    <div class="top-note">
+      Stronger Together ♡
+    </div>
   </header>
 
+
   <main class="page-shell">
+
+    <!-- HERO -->
     <section class="hero">
       <h1>Let’s Help Each Other ♡</h1>
-      <p>Share your OWPS EOI score and check what others have shared for your NOC code and region.</p>
-    </section>
-   <section class="results" style="margin-bottom:24px;">
-  <div class="result-summary">
-    <strong id="totalCommunityCount">Loading community data...</strong>
-  </div>
 
-  <div id="communityScoreCounts" class="score-chips"></div>
-</section>
-    <section class="grid" aria-label="OWPS community tools">
+      <p>
+        Share your OWPS EOI score and check what others
+        have shared for your NOC code and region.
+      </p>
+    </section>
+
+
+    <!-- NEW COMMUNITY DASHBOARD -->
+    <div id="communityDashboard"></div>
+
+
+    <!-- EXISTING SHARE + CHECK TOOLS -->
+    <section
+      class="grid"
+      aria-label="OWPS community tools"
+    >
+
+      <!-- SHARE SCORE -->
       <article class="card card-blue">
+
         <div class="icon-circle">➤</div>
+
         <h2>Share Your EOI Score</h2>
-        <p>Add your NOC code, region and OWPS EOI score to help the community.</p>
+
+        <p>
+          Add your NOC code, region and OWPS EOI score
+          to help the community.
+        </p>
 
         <form id="shareForm" novalidate>
-          <label for="shareNoc">NOC Code</label>
-          <input id="shareNoc" name="noc" inputmode="numeric" maxlength="5" placeholder="e.g. 22310" required />
 
-          <label for="shareRegion">Region (where you are working)</label>
-          <select id="shareRegion" name="region" required>
-            <option value="">Select Region</option>
-            <option>Greater Toronto Area</option>
-            <option>Central Ontario</option>
-            <option>Eastern Ontario</option>
-            <option>Southwestern Ontario</option>
-            <option>Northern Ontario</option>
+          <label for="shareNoc">
+            NOC Code
+          </label>
+
+          <input
+            id="shareNoc"
+            name="noc"
+            inputmode="numeric"
+            maxlength="5"
+            placeholder="e.g. 22310"
+            required
+          />
+
+
+          <label for="shareRegion">
+            Region (where you are working)
+          </label>
+
+          <select
+            id="shareRegion"
+            name="region"
+            required
+          >
+
+            <option value="">
+              Select Region
+            </option>
+
+            <option>
+              Greater Toronto Area
+            </option>
+
+            <option>
+              Central Ontario
+            </option>
+
+            <option>
+              Eastern Ontario
+            </option>
+
+            <option>
+              Southwestern Ontario
+            </option>
+
+            <option>
+              Northern Ontario
+            </option>
+
           </select>
 
-          <label for="shareScore">OWPS EOI Score</label>
-          <input id="shareScore" name="score" type="number" min="0" max="200" step="1" placeholder="e.g. 81" required />
 
-          <button type="submit" class="btn btn-blue">Share My Score</button>
-          <div id="shareMessage" class="message" role="status" aria-live="polite"></div>
+          <label for="shareScore">
+            OWPS EOI Score
+          </label>
+
+          <input
+            id="shareScore"
+            name="score"
+            type="number"
+            min="0"
+            max="200"
+            step="1"
+            placeholder="e.g. 81"
+            required
+          />
+
+
+          <button
+            type="submit"
+            class="btn btn-blue"
+          >
+            Share My Score
+          </button>
+
+
+          <div
+            id="shareMessage"
+            class="message"
+            role="status"
+            aria-live="polite"
+          ></div>
+
         </form>
+
       </article>
 
+
+      <!-- CHECK COMMUNITY SCORES -->
       <article class="card card-green">
-        <div class="icon-circle green">▮▮▮</div>
-        <h2>Check Community Scores</h2>
-        <p>See how many profiles others have shared for a specific NOC code and region, and view their EOI scores.</p>
+
+        <div class="icon-circle green">
+          ▮▮▮
+        </div>
+
+        <h2>
+          Check Community Scores
+        </h2>
+
+        <p>
+          See how many profiles others have shared
+          for a specific NOC code and region,
+          and view their EOI scores.
+        </p>
+
 
         <form id="checkForm" novalidate>
-          <label for="checkNoc">NOC Code</label>
-          <input id="checkNoc" name="noc" inputmode="numeric" maxlength="5" placeholder="e.g. 22310" required />
 
-          <label for="checkRegion">Region</label>
-          <select id="checkRegion" name="region" required>
-            <option value="">Select Region</option>
-            <option>Greater Toronto Area</option>
-            <option>Central Ontario</option>
-            <option>Eastern Ontario</option>
-            <option>Southwestern Ontario</option>
-            <option>Northern Ontario</option>
+          <label for="checkNoc">
+            NOC Code
+          </label>
+
+          <input
+            id="checkNoc"
+            name="noc"
+            inputmode="numeric"
+            maxlength="5"
+            placeholder="e.g. 22310"
+            required
+          />
+
+
+          <label for="checkRegion">
+            Region
+          </label>
+
+          <select
+            id="checkRegion"
+            name="region"
+            required
+          >
+
+            <option value="">
+              Select Region
+            </option>
+
+            <option>
+              Greater Toronto Area
+            </option>
+
+            <option>
+              Central Ontario
+            </option>
+
+            <option>
+              Eastern Ontario
+            </option>
+
+            <option>
+              Southwestern Ontario
+            </option>
+
+            <option>
+              Northern Ontario
+            </option>
+
           </select>
 
-          <button type="submit" class="btn btn-green">View Shared Data</button>
+
+          <button
+            type="submit"
+            class="btn btn-green"
+          >
+            View Shared Data
+          </button>
+
         </form>
 
-        <section id="results" class="results" hidden>
+
+        <!-- EXISTING FILTERED RESULTS -->
+        <section
+          id="results"
+          class="results"
+          hidden
+        >
+
           <div class="result-summary">
-            <strong id="profileCount">0 profiles</strong>
+
+            <strong id="profileCount">
+              0 profiles
+            </strong>
+
             <span id="resultLabel"></span>
+
           </div>
-          <div id="scoreChips" class="score-chips"></div>
-          <div id="distribution" class="distribution"></div>
+
+
+          <div
+            id="scoreChips"
+            class="score-chips"
+          ></div>
+
+
+          <div
+            id="distribution"
+            class="distribution"
+          ></div>
+
         </section>
-        <div id="checkMessage" class="message" role="status" aria-live="polite"></div>
+
+
+        <div
+          id="checkMessage"
+          class="message"
+          role="status"
+          aria-live="polite"
+        ></div>
+
       </article>
+
     </section>
 
+
+    <!-- DISCLAIMER -->
     <section class="community-note">
-      <span aria-hidden="true">👥</span>
+
+      <span aria-hidden="true">
+        👥
+      </span>
+
       <div>
-        <div>All data is shared voluntarily by community members.</div>
-        <div>This is not an official source and does not provide any guarantee or eligibility information.</div>
+
+        <div>
+          All data is shared voluntarily
+          by community members.
+        </div>
+
+        <div>
+          This is not an official source and does not
+          provide any guarantee or eligibility information.
+        </div>
+
       </div>
+
     </section>
+
   </main>
 
+
   <footer>
-    <div><strong>OWPS Community</strong><br><span>By the Community, For the Community</span></div>
-    <div>Share · Learn · Support</div>
+
+    <div>
+      <strong>OWPS Community</strong>
+      <br>
+      <span>
+        By the Community, For the Community
+      </span>
+    </div>
+
+    <div>
+      Share · Learn · Support
+    </div>
+
   </footer>
 
+
+  <!-- EXISTING SUPABASE + APP -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script src="config.js"></script>
+
   <script src="app.js"></script>
+
+
+  <!-- NEW DASHBOARD -->
+  <script src="community-dashboard.js"></script>
+
 </body>
 </html>
