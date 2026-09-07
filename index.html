@@ -3,28 +3,213 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>OWPS Community</title>
-  <meta name="description" content="Community-shared OWPS EOI scores by NOC code and Ontario region." />
+
+  <meta
+    name="description"
+    content="Community-shared OWPS EOI scores by NOC code and Ontario region."
+  />
+
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- DASHBOARD STYLE -->
+  <style>
+    .owps-dashboard {
+      margin: 20px auto 28px;
+      width: 100%;
+    }
+
+    .owps-total-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 22px 25px;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, #f3fff8, #ffffff);
+      border: 1px solid #cae9d6;
+      border-radius: 16px;
+      box-shadow: 0 5px 18px rgba(31, 66, 101, 0.05);
+    }
+
+    .owps-total-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #e5f7ec;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .owps-total-number {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1;
+      color: #102a52;
+    }
+
+    .owps-total-title {
+      margin-top: 5px;
+      font-size: 19px;
+      font-weight: 750;
+      color: #102a52;
+    }
+
+    .owps-total-subtitle {
+      margin-top: 4px;
+      font-size: 14px;
+      color: #68778e;
+    }
+
+    .owps-chart-card {
+      background: #ffffff;
+      border: 1px solid #dfe7ef;
+      border-radius: 16px;
+      padding: 20px 20px 16px;
+      box-shadow: 0 5px 18px rgba(31, 66, 101, 0.05);
+    }
+
+    .owps-chart-title {
+      font-size: 21px;
+      font-weight: 800;
+      color: #102a52;
+    }
+
+    .owps-chart-subtitle {
+      margin-top: 4px;
+      font-size: 14px;
+      color: #68778e;
+    }
+
+    .owps-chart-scroll {
+      overflow-x: auto;
+      margin-top: 16px;
+      padding-bottom: 6px;
+    }
+
+    .owps-chart {
+      height: 150px;
+      min-width: max-content;
+      display: flex;
+      align-items: flex-end;
+      gap: 9px;
+      padding: 10px 3px 0;
+    }
+
+    .owps-bar-item {
+      width: 42px;
+      flex: 0 0 42px;
+      text-align: center;
+    }
+
+    .owps-bar-count {
+      height: 18px;
+      font-size: 12px;
+      font-weight: 750;
+      color: #334963;
+      margin-bottom: 4px;
+    }
+
+    .owps-bar-area {
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .owps-bar {
+      width: 27px;
+      min-height: 7px;
+      border-radius: 5px 5px 2px 2px;
+      background: linear-gradient(180deg, #62b8ff, #1784ee);
+    }
+
+    .owps-bar-score {
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 650;
+      color: #65758c;
+    }
+
+    .owps-empty {
+      width: 100%;
+      padding: 30px 10px;
+      text-align: center;
+      color: #65758c;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .owps-total-card {
+        padding: 18px;
+      }
+
+      .owps-total-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
+
+      .owps-total-number {
+        font-size: 31px;
+      }
+
+      .owps-total-title {
+        font-size: 17px;
+      }
+
+      .owps-chart-card {
+        padding: 17px 12px 13px;
+      }
+
+      .owps-chart-title {
+        font-size: 19px;
+      }
+
+      .owps-chart {
+        gap: 6px;
+      }
+
+      .owps-bar-item {
+        width: 38px;
+        flex-basis: 38px;
+      }
+
+      .owps-bar {
+        width: 24px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
   <header class="topbar">
+
     <div class="brand">
-      <div class="brand-icon" aria-hidden="true">👥</div>
+
+      <div class="brand-icon" aria-hidden="true">
+        👥
+      </div>
 
       <div>
-        <div class="brand-title">OWPS Community</div>
+        <div class="brand-title">
+          OWPS Community
+        </div>
+
         <div class="brand-subtitle">
           Share · Explore · Support Each Other
         </div>
       </div>
+
     </div>
 
     <div class="top-note">
       Stronger Together ♡
     </div>
+
   </header>
 
 
@@ -32,36 +217,104 @@
 
     <!-- HERO -->
     <section class="hero">
-      <h1>Let’s Help Each Other ♡</h1>
+
+      <h1>
+        Let’s Help Each Other ♡
+      </h1>
 
       <p>
         Share your OWPS EOI score and check what others
         have shared for your NOC code and region.
       </p>
+
     </section>
 
 
-    <!-- NEW COMMUNITY DASHBOARD -->
-    <div id="communityDashboard"></div>
+    <!-- COMMUNITY DASHBOARD -->
+    <section class="owps-dashboard">
+
+      <!-- TOTAL SUBMISSIONS -->
+      <div class="owps-total-card">
+
+        <div class="owps-total-icon">
+          👥
+        </div>
+
+        <div>
+
+          <div
+            id="owpsTotal"
+            class="owps-total-number"
+          >
+            —
+          </div>
+
+          <div class="owps-total-title">
+            Community submissions
+          </div>
+
+          <div class="owps-total-subtitle">
+            Real scores shared by OWPS applicants
+          </div>
+
+        </div>
+
+      </div>
 
 
-    <!-- EXISTING SHARE + CHECK TOOLS -->
+      <!-- SCORE DISTRIBUTION -->
+      <div class="owps-chart-card">
+
+        <div class="owps-chart-title">
+          📊 Score Distribution
+        </div>
+
+        <div class="owps-chart-subtitle">
+          Number of community members at each EOI score
+        </div>
+
+        <div class="owps-chart-scroll">
+
+          <div
+            id="owpsChart"
+            class="owps-chart"
+          >
+
+            <div class="owps-empty">
+              Loading community scores...
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- EXISTING SHARE + CHECK SECTION -->
     <section
       class="grid"
       aria-label="OWPS community tools"
     >
 
-      <!-- SHARE SCORE -->
+      <!-- SHARE YOUR SCORE -->
       <article class="card card-blue">
 
-        <div class="icon-circle">➤</div>
+        <div class="icon-circle">
+          ➤
+        </div>
 
-        <h2>Share Your EOI Score</h2>
+        <h2>
+          Share Your EOI Score
+        </h2>
 
         <p>
           Add your NOC code, region and OWPS EOI score
           to help the community.
         </p>
+
 
         <form id="shareForm" novalidate>
 
@@ -152,7 +405,7 @@
       </article>
 
 
-      <!-- CHECK COMMUNITY SCORES -->
+      <!-- CHECK COMMUNITY SCORE -->
       <article class="card card-green">
 
         <div class="icon-circle green">
@@ -233,7 +486,7 @@
         </form>
 
 
-        <!-- EXISTING FILTERED RESULTS -->
+        <!-- EXISTING RESULTS -->
         <section
           id="results"
           class="results"
@@ -287,13 +540,12 @@
       <div>
 
         <div>
-          All data is shared voluntarily
-          by community members.
+          All data is shared voluntarily by community members.
         </div>
 
         <div>
-          This is not an official source and does not
-          provide any guarantee or eligibility information.
+          This is not an official source and does not provide
+          any guarantee or eligibility information.
         </div>
 
       </div>
@@ -306,11 +558,17 @@
   <footer>
 
     <div>
-      <strong>OWPS Community</strong>
+
+      <strong>
+        OWPS Community
+      </strong>
+
       <br>
+
       <span>
         By the Community, For the Community
       </span>
+
     </div>
 
     <div>
@@ -320,16 +578,229 @@
   </footer>
 
 
-  <!-- EXISTING SUPABASE + APP -->
+  <!-- SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="config.js"></script>
 
+  <!-- YOUR EXISTING APP -->
   <script src="app.js"></script>
 
 
-  <!-- NEW DASHBOARD -->
-  <script src="community-dashboard.js"></script>
+  <!-- DASHBOARD CODE -->
+  <script>
+    (() => {
+
+      const cfg = window.OWPS_CONFIG || {};
+
+      const totalElement =
+        document.getElementById("owpsTotal");
+
+      const chartElement =
+        document.getElementById("owpsChart");
+
+
+      if (
+        !cfg.SUPABASE_URL ||
+        !cfg.SUPABASE_ANON_KEY ||
+        !window.supabase
+      ) {
+
+        totalElement.textContent = "—";
+
+        chartElement.innerHTML =
+          '<div class="owps-empty">Could not connect to community data.</div>';
+
+        return;
+      }
+
+
+      const dashboardDb =
+        window.supabase.createClient(
+          cfg.SUPABASE_URL,
+          cfg.SUPABASE_ANON_KEY
+        );
+
+
+      async function loadCommunityDashboard() {
+
+        try {
+
+          const { data, error } =
+            await dashboardDb
+              .from("eoi_profiles")
+              .select("eoi_score");
+
+
+          if (error) {
+            throw error;
+          }
+
+
+          const rows = data || [];
+
+
+          /* TOTAL SUBMISSIONS */
+
+          totalElement.textContent =
+            rows.length;
+
+
+          /* NO DATA */
+
+          if (rows.length === 0) {
+
+            chartElement.innerHTML =
+              '<div class="owps-empty">No scores have been shared yet.</div>';
+
+            return;
+          }
+
+
+          /* COUNT MEMBERS AT EACH EXACT SCORE */
+
+          const counts = new Map();
+
+
+          rows.forEach(row => {
+
+            const score =
+              Number(row.eoi_score);
+
+
+            if (!Number.isFinite(score)) {
+              return;
+            }
+
+
+            counts.set(
+              score,
+              (counts.get(score) || 0) + 1
+            );
+
+          });
+
+
+          /* HIGH SCORE TO LOW SCORE */
+
+          const scoreData =
+            [...counts.entries()]
+              .sort((a, b) => b[0] - a[0]);
+
+
+          const maxCount =
+            Math.max(
+              ...scoreData.map(
+                item => item[1]
+              )
+            );
+
+
+          chartElement.innerHTML = "";
+
+
+          /* CREATE BARS */
+
+          scoreData.forEach(
+            ([score, count]) => {
+
+              const barItem =
+                document.createElement("div");
+
+              barItem.className =
+                "owps-bar-item";
+
+
+              const barHeight =
+                Math.max(
+                  8,
+                  Math.round(
+                    (count / maxCount) * 90
+                  )
+                );
+
+
+              barItem.innerHTML = `
+
+                <div class="owps-bar-count">
+                  ${count}
+                </div>
+
+                <div class="owps-bar-area">
+
+                  <div
+                    class="owps-bar"
+                    style="height:${barHeight}px"
+                    title="${count} member${count === 1 ? "" : "s"} with score ${score}"
+                  ></div>
+
+                </div>
+
+                <div class="owps-bar-score">
+                  ${score}
+                </div>
+
+              `;
+
+
+              chartElement.appendChild(
+                barItem
+              );
+
+            }
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Dashboard error:",
+            error
+          );
+
+
+          totalElement.textContent =
+            "—";
+
+
+          chartElement.innerHTML =
+            '<div class="owps-empty">Could not load community scores.</div>';
+
+        }
+
+      }
+
+
+      loadCommunityDashboard();
+
+
+      /*
+        Refresh dashboard after someone
+        successfully submits a new score.
+      */
+
+      const shareForm =
+        document.getElementById("shareForm");
+
+
+      if (shareForm) {
+
+        shareForm.addEventListener(
+          "submit",
+          () => {
+
+            setTimeout(
+              loadCommunityDashboard,
+              1500
+            );
+
+          }
+        );
+
+      }
+
+    })();
+  </script>
 
 </body>
 </html>
