@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OWPS Community</title>
+  <meta name="description" content="Community-shared OWPS EOI scores by NOC code and Ontario region." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">👥</div>
+      <div>
+        <div class="brand-title">OWPS Community</div>
+        <div class="brand-subtitle">Share · Explore · Support Each Other</div>
+      </div>
+    </div>
+    <div class="top-note">Stronger Together ♡</div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero">
+      <h1>Let’s Help Each Other ♡</h1>
+      <p>Share your OWPS EOI score and check what others have shared for your NOC code and region.</p>
+    </section>
+
+    <section class="grid" aria-label="OWPS community tools">
+      <article class="card card-blue">
+        <div class="icon-circle">➤</div>
+        <h2>Share Your EOI Score</h2>
+        <p>Add your NOC code, region and OWPS EOI score to help the community.</p>
+
+        <form id="shareForm" novalidate>
+          <label for="shareNoc">NOC Code</label>
+          <input id="shareNoc" name="noc" inputmode="numeric" maxlength="5" placeholder="e.g. 22310" required />
+
+          <label for="shareRegion">Region (where you are working)</label>
+          <select id="shareRegion" name="region" required>
+            <option value="">Select Region</option>
+            <option>Greater Toronto Area</option>
+            <option>Central Ontario</option>
+            <option>Eastern Ontario</option>
+            <option>Southwestern Ontario</option>
+            <option>Northern Ontario</option>
+          </select>
+
+          <label for="shareScore">OWPS EOI Score</label>
+          <input id="shareScore" name="score" type="number" min="0" max="200" step="1" placeholder="e.g. 81" required />
+
+          <button type="submit" class="btn btn-blue">Share My Score</button>
+          <div id="shareMessage" class="message" role="status" aria-live="polite"></div>
+        </form>
+      </article>
+
+      <article class="card card-green">
+        <div class="icon-circle green">▮▮▮</div>
+        <h2>Check Community Scores</h2>
+        <p>See how many profiles others have shared for a specific NOC code and region, and view their EOI scores.</p>
+
+        <form id="checkForm" novalidate>
+          <label for="checkNoc">NOC Code</label>
+          <input id="checkNoc" name="noc" inputmode="numeric" maxlength="5" placeholder="e.g. 22310" required />
+
+          <label for="checkRegion">Region</label>
+          <select id="checkRegion" name="region" required>
+            <option value="">Select Region</option>
+            <option>Greater Toronto Area</option>
+            <option>Central Ontario</option>
+            <option>Eastern Ontario</option>
+            <option>Southwestern Ontario</option>
+            <option>Northern Ontario</option>
+          </select>
+
+          <button type="submit" class="btn btn-green">View Shared Data</button>
+        </form>
+
+        <section id="results" class="results" hidden>
+          <div class="result-summary">
+            <strong id="profileCount">0 profiles</strong>
+            <span id="resultLabel"></span>
+          </div>
+          <div id="scoreChips" class="score-chips"></div>
+          <div id="distribution" class="distribution"></div>
+        </section>
+        <div id="checkMessage" class="message" role="status" aria-live="polite"></div>
+      </article>
+    </section>
+
+    <section class="community-note">
+      <span aria-hidden="true">👥</span>
+      <div>
+        <div>All data is shared voluntarily by community members.</div>
+        <div>This is not an official source and does not provide any guarantee or eligibility information.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>OWPS Community</strong><br><span>By the Community, For the Community</span></div>
+    <div>Share · Learn · Support</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
