@@ -12,7 +12,8 @@
   const resultLabel = document.getElementById('resultLabel');
   const scoreChips = document.getElementById('scoreChips');
   const distribution = document.getElementById('distribution');
-
+  const totalCommunityCount = document.getElementById('totalCommunityCount');
+  const communityScoreCounts = document.getElementById('communityScoreCounts');
   function validNoc(v){ return /^\d{5}$/.test(v); }
   function validScore(v){ const n=Number(v); return Number.isInteger(n) && n>=0 && n<=200; }
   function setMsg(el, text, type=''){ el.textContent=text; el.className='message'+(type?` ${type}`:''); }
@@ -89,4 +90,58 @@
       distribution.appendChild(row);
     });
   }
+  async function loadCommunityCounts() {
+  try {
+    let rows = [];
+
+    if (db) {
+      const { data, error } = await db
+        .from('eoi_profiles')
+        .select('eoi_score');
+
+      if (error) throw error;
+
+      rows = data || [];
+    } else {
+      rows = localRows();
+    }
+
+    totalCommunityCount.textContent =
+      `${rows.length} community ${rows.length === 1 ? 'submission' : 'submissions'}`;
+
+    communityScoreCounts.innerHTML = '';
+
+    if (!rows.length) {
+      communityScoreCounts.innerHTML =
+        '<span style="color:#65758c">No scores shared yet.</span>';
+      return;
+    }
+
+    const counts = new Map();
+
+    for (const row of rows) {
+      const score = Number(row.eoi_score);
+      counts.set(score, (counts.get(score) || 0) + 1);
+    }
+
+    [...counts.entries()]
+      .sort((a, b) => b[0] - a[0])
+      .forEach(([score, count]) => {
+
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+
+        chip.textContent =
+          `${score} · ${count} ${count === 1 ? 'member' : 'members'}`;
+
+        communityScoreCounts.appendChild(chip);
+      });
+
+  } catch (err) {
+    totalCommunityCount.textContent = 'Community scores';
+    console.error(err);
+  }
+}
+
+loadCommunityCounts();
 })();
