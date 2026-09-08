@@ -32,7 +32,7 @@
 
   function validScore(v) {
     const n = Number(v);
-    return Number.isInteger(n) && n >= 1 && n <= 200;
+    return Number.isInteger(n) && n >= 1 && n <= 130;
   }
 
   function setMsg(el, text, type = '') {
