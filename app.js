@@ -100,7 +100,7 @@
     if (!validScore(score)) {
       return setMsg(
         shareMessage,
-        'Please enter a whole-number score from 1 to 200.',
+        'Please enter a whole-number score from 1 to 130.',
         'error'
       );
     }
