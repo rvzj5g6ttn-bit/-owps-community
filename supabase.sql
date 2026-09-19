@@ -9,7 +9,7 @@ create table if not exists public.eoi_profiles (
     'Southwestern Ontario',
     'Northern Ontario'
   )),
-  eoi_score integer not null check (eoi_score between 0 and 200),
+  eoi_score integer not null check (eoi_score between 1 and 130),
   created_at timestamptz not null default now()
 );
 
@@ -21,13 +21,33 @@ on public.eoi_profiles for select
 to anon
 using (true);
 
--- Anonymous users can submit only rows that pass table constraints.
-create policy "public insert eoi profiles"
-on public.eoi_profiles for insert
-to anon
-with check (true);
+-- SECURITY: browser clients may read public aggregate/community data, but may
+-- NOT insert directly. All writes go through the submit-score Edge Function.
+drop policy if exists "public insert eoi profiles" on public.eoi_profiles;
+revoke insert, update, delete on public.eoi_profiles from anon, authenticated;
+grant select on public.eoi_profiles to anon, authenticated;
+
+-- Private rate-limit state. Do not expose this table to browser roles.
+create table if not exists public.submission_rate_limits (
+  client_hash text primary key,
+  last_submitted_at timestamptz not null default now()
+);
+alter table public.submission_rate_limits enable row level security;
+revoke all on public.submission_rate_limits from anon, authenticated;
 
 -- No anonymous update or delete policies are created.
 
 create index if not exists eoi_profiles_noc_region_idx
 on public.eoi_profiles (noc_code, region);
+
+-- Migration hardening for projects where eoi_profiles already existed.
+-- Existing invalid rows are left untouched; the new constraint is validated only
+-- after they are cleaned up. New rows are still checked by the Edge Function.
+do $$
+begin
+  if exists (select 1 from pg_constraint where conname = 'eoi_profiles_eoi_score_check') then
+    alter table public.eoi_profiles drop constraint eoi_profiles_eoi_score_check;
+  end if;
+  alter table public.eoi_profiles
+    add constraint eoi_profiles_eoi_score_check check (eoi_score between 1 and 130) not valid;
+end $$;

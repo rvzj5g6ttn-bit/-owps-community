@@ -30,6 +30,10 @@
     return /^\d{5}$/.test(v);
   }
 
+  const ALLOWED_REGIONS = new Set(['Greater Toronto Area','Central Ontario','Eastern Ontario','Southwestern Ontario','Northern Ontario']);
+
+  function validRegion(v) { return ALLOWED_REGIONS.has(v); }
+
   function validScore(v) {
     const n = Number(v);
     return Number.isInteger(n) && n >= 1 && n <= 130;
@@ -89,7 +93,7 @@
       );
     }
 
-    if (!region) {
+    if (!validRegion(region)) {
       return setMsg(
         shareMessage,
         'Please select a region.',
@@ -238,7 +242,7 @@
     }
 
 
-    if (!region) {
+    if (!validRegion(region)) {
       return setMsg(
         checkMessage,
         'Please select a region.',

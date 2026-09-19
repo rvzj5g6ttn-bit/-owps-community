@@ -229,13 +229,80 @@
       </h1>
 
       <p>
-        Share your OWPS EOI score and explore community-submitted
+        Calculate your OWPS EOI score, then compare it with community-submitted
         Ontario Workforce Priority Stream scores by NOC code and region.
       </p>
 
     </section>
 
 
+    <!-- MAIN TOOL NAVIGATION -->
+    <nav class="tool-tabs" aria-label="OWPS tools">
+      <button type="button" id="calculatorTab" class="tool-tab active" aria-controls="calculatorPanel" aria-selected="true">Score Calculator</button>
+      <button type="button" id="communityTab" class="tool-tab" aria-controls="communityPanel" aria-selected="false">Community Data</button>
+    </nav>
+
+    <!-- SCORE CALCULATOR -->
+    <section id="calculatorPanel" class="tool-panel" aria-labelledby="calculatorTab">
+      <div class="calculator-layout">
+        <div class="calculator-main">
+          <div class="calculator-intro">
+            <span class="eyebrow">OWPS EOI SCORE</span>
+            <h2>Calculate your score</h2>
+            <p>Complete all scoring factors below. Your score updates automatically.</p>
+          </div>
+
+          <div class="calc-section open">
+            <button type="button" class="calc-section-head" aria-expanded="true"><span><strong>1. Employment &amp; labour market</strong><small>NOC · wage · Ontario experience</small></span><b id="calcEmploymentPts">0 pts</b></button>
+            <div class="calc-section-body">
+              <div class="calc-two">
+                <label for="calcNoc">NOC Code <small>(max 19)</small></label>
+                <input id="calcNoc" inputmode="numeric" maxlength="5" placeholder="e.g. 33102" />
+                <div id="calcNocHint" class="calc-hint">Example: PSW NOC 33102</div>
+                <label for="calcWage">Hourly Wage <small>(max 15)</small></label>
+                <input id="calcWage" type="number" min="0" step="0.01" placeholder="e.g. 25.00" />
+                <div id="calcWageHint" class="calc-hint">0 points</div>
+              </div>
+              <label for="calcJobExp">Time working full-time in job-offer position <small>(max 18)</small></label>
+              <select id="calcJobExp"><option value="0">Less than 6 months / not currently working — 0</option><option value="12">6–12 months — 12</option><option value="15">13–24 months — 15</option><option value="18">Over 24 months — 18</option></select>
+              <div id="calcOntarioWrap">
+                <label for="calcOntarioExp">Total Ontario work experience</label>
+                <select id="calcOntarioExp"><option value="0">Less than 6 months / none — 0</option><option value="6">6–12 months — 6</option><option value="9">13–24 months — 9</option><option value="12">Over 24 months — 12</option></select>
+                <div class="calc-hint">Used when you have less than 6 months in the job-offer position.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="calc-section"><button type="button" class="calc-section-head" aria-expanded="false"><span><strong>2. Canadian earnings history</strong><small>CRA Notice of Assessment · max 8</small></span><b id="calcEarningsPts">0 pts</b></button><div class="calc-section-body" hidden><label for="calcEarnings">Highest qualifying annual Canadian earnings</label><select id="calcEarnings"><option value="0">Under $30,000 / no qualifying NOA — 0</option><option value="4">$30,000–$49,999 — 4</option><option value="6">$50,000–$69,999 — 6</option><option value="8">$70,000 or more — 8</option></select><div class="calc-hint">Use a single CRA Notice of Assessment from the last five years. Do not combine different calendar years.</div></div></div>
+
+          <div class="calc-section"><button type="button" class="calc-section-head" aria-expanded="false"><span><strong>3. Legal status in Canada</strong><small>Work or study permit · max 10</small></span><b id="calcStatusPts">0 pts</b></button><div class="calc-section-body" hidden><label for="calcStatus">Current legal status</label><select id="calcStatus"><option value="0">Without valid work or study permit — 0</option><option value="5">Valid study permit — 5</option><option value="10">Valid work permit — 10</option></select></div></div>
+
+          <div class="calc-section"><button type="button" class="calc-section-head" aria-expanded="false"><span><strong>4. Education</strong><small>Highest education · Canadian credentials · max 20</small></span><b id="calcEducationPts">0 pts</b></button><div class="calc-section-body" hidden><p class="calc-hint top">Select all credentials you hold. The highest applicable education score is used.</p><div id="calcEducationChoices" class="credential-grid">
+            <label class="credential"><input type="checkbox" data-points="10" data-name="Doctorate / professional degree"><span>Doctorate / medicine / dentistry / veterinary / optometry <b>10</b></span></label>
+            <label class="credential"><input type="checkbox" data-points="8" data-name="Master's degree"><span>Master's degree <b>8</b></span></label>
+            <label class="credential"><input type="checkbox" data-points="6" data-name="Bachelor's degree"><span>Bachelor's degree or equivalent <b>6</b></span></label>
+            <label class="credential"><input type="checkbox" data-points="6" data-name="University credential above bachelor's"><span>University certificate/diploma above bachelor's <b>6</b></span></label>
+            <label class="credential"><input type="checkbox" data-points="5" data-name="Ontario College Graduate Certificate (PGCert)"><span>Ontario College Graduate Certificate (PGCert) <b>5</b></span></label>
+            <label class="credential"><input type="checkbox" data-points="5" data-name="University credential below bachelor's"><span>University certificate/diploma below bachelor's <b>5</b></span></label>
+            <label class="credential"><input type="checkbox" data-points="5" data-name="College / CEGEP / non-university credential"><span>College / CEGEP / non-university credential <b>5</b></span></label>
+            <label class="credential"><input type="checkbox" data-points="5" data-name="Apprenticeship / trades credential"><span>Apprenticeship / trades credential <b>5</b></span></label>
+          </div><div id="calcHighestEdu" class="calc-result">Highest education used: <b>None — 0 pts</b></div><label for="calcCanadianEdu">Number of qualifying Canadian education credentials <small>(max 10)</small></label><select id="calcCanadianEdu"><option value="0">None — 0</option><option value="5">One — 5</option><option value="10">More than one — 10</option></select><div class="calc-hint">Each qualifying Canadian credential must take at least one year to complete full-time.</div></div></div>
+
+          <div class="calc-section"><button type="button" class="calc-section-head" aria-expanded="false"><span><strong>5. Language</strong><small>CLB · official languages · max 25</small></span><b id="calcLanguagePts">5 pts</b></button><div class="calc-section-body" hidden><label for="calcClb">Lowest CLB across reading, writing, listening and speaking <small>(max 15)</small></label><select id="calcClb"><option value="0">CLB 5 or lower — 0</option><option value="4">CLB 6 — 4</option><option value="8">CLB 7 — 8</option><option value="12">CLB 8 — 12</option><option value="15">CLB 9 or higher — 15</option></select><label for="calcLanguages">Knowledge of official languages <small>(max 10)</small></label><select id="calcLanguages"><option value="5">1 official language — 5</option><option value="10">2 official languages — 10</option></select><div class="calc-hint">For two languages, CLB 6+ is required in all four abilities for both English and French.</div></div></div>
+
+          <div class="calc-section"><button type="button" class="calc-section-head" aria-expanded="false"><span><strong>6. Regionalization</strong><small>Job-offer location · max 15</small></span><b id="calcRegionPts">0 pts</b></button><div class="calc-section-body" hidden><label for="calcRegion">Ontario region</label><select id="calcRegion"><option value="0" data-community="Greater Toronto Area">Toronto — 0</option><option value="5" data-community="Greater Toronto Area">Inside GTA except Toronto — 5</option><option value="10" data-community="Eastern Ontario">Eastern Ontario — 10</option><option value="10" data-community="Central Ontario">Central Ontario outside GTA — 10</option><option value="10" data-community="Southwestern Ontario">Southwestern Ontario — 10</option><option value="15" data-community="Northern Ontario">Northern Ontario — 15</option></select></div></div>
+        </div>
+
+        <aside class="score-summary">
+          <div class="score-label">YOUR OWPS EOI SCORE</div><div id="calcTotal" class="score-number" aria-live="polite">5</div><div class="score-max">out of 130</div><div class="score-progress"><span id="calcProgress" style="width:3.85%"></span></div><div id="calcBreakdown" class="score-breakdown"></div>
+          <button type="button" id="calcSubmitCommunity" class="btn btn-blue calc-submit">Submit score to community →</button>
+          <button type="button" id="calcReset" class="calc-reset">Reset calculator</button>
+          <p class="score-note">EOI scoring is separate from OWPS eligibility. Verify your information against the official Ontario program requirements.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="communityPanel" class="tool-panel" hidden aria-labelledby="communityTab">
     <!-- COMMUNITY DASHBOARD -->
     <section class="owps-dashboard">
 
@@ -333,7 +400,7 @@
             name="noc"
             inputmode="numeric"
             maxlength="5"
-            placeholder="e.g. 22101"
+            placeholder="e.g. 33102"
             required
           />
 
@@ -440,7 +507,7 @@
             name="noc"
             inputmode="numeric"
             maxlength="5"
-            placeholder="e.g. 22101"
+            placeholder="e.g. 33102"
             required
           />
 
@@ -536,6 +603,8 @@
     </section>
 
 
+    </section>
+
     <!-- DISCLAIMER -->
     <section class="community-note">
 
@@ -592,6 +661,8 @@
   <!-- EXISTING APP -->
   <script src="app.js"></script>
 
+
+  <script src="calculator.js"></script>
 
   <!-- DASHBOARD CODE -->
   <script>
