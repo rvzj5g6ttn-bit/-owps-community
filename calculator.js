@@ -235,6 +235,27 @@
       shareCard.classList.remove('community-focus');
     }, 1300);
   });
+    // Start calculator completely blank at 0/130
+document
+  .querySelectorAll('#calculatorPanel input[type="checkbox"]')
+  .forEach((x) => {
+    x.checked = false;
+  });
 
-  update();
+document
+  .querySelectorAll('#calculatorPanel input:not([type="checkbox"])')
+  .forEach((x) => {
+    x.value = '';
+  });
+
+document
+  .querySelectorAll('#calculatorPanel select')
+  .forEach((x) => {
+    x.value = '';
+    if (x.value !== '') {
+      x.selectedIndex = -1;
+    }
+  });
+
+update();
 })();
