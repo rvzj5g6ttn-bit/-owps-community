@@ -134,7 +134,9 @@
             method: 'POST',
 
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'apikey': cfg.SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${cfg.SUPABASE_ANON_KEY}`
             },
 
             body: JSON.stringify({
