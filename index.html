@@ -238,12 +238,12 @@
 
     <!-- MAIN TOOL NAVIGATION -->
     <nav class="tool-tabs" aria-label="OWPS tools">
-      <button type="button" id="calculatorTab" class="tool-tab active" aria-controls="calculatorPanel" aria-selected="true">Score Calculator</button>
-      <button type="button" id="communityTab" class="tool-tab" aria-controls="communityPanel" aria-selected="false">Community Data</button>
+      <button type="button" id="communityTab" class="tool-tab active" aria-controls="communityPanel" aria-selected="true">Community Data</button>
+      <button type="button" id="calculatorTab" class="tool-tab" aria-controls="calculatorPanel" aria-selected="false">Score Calculator</button>
     </nav>
 
     <!-- SCORE CALCULATOR -->
-    <section id="calculatorPanel" class="tool-panel" aria-labelledby="calculatorTab">
+    <section id="calculatorPanel" class="tool-panel" hidden aria-labelledby="calculatorTab">
       <div class="calculator-layout">
         <div class="calculator-main">
           <div class="calculator-intro">
@@ -302,7 +302,7 @@
       </div>
     </section>
 
-    <section id="communityPanel" class="tool-panel" hidden aria-labelledby="communityTab">
+    <section id="communityPanel" class="tool-panel" aria-labelledby="communityTab">
     <!-- COMMUNITY DASHBOARD -->
     <section class="owps-dashboard">
 
